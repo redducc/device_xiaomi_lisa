@@ -5,6 +5,8 @@
      SPDX-License-Identifier: Apache-2.0
 -->
 <resources>
+     <bool name="config_fingerprintWakeAndUnlock">true</bool>
+
     <!-- Array of desired screen brightness in nits corresponding to the lux values
          in the config_autoBrightnessLevels array. As with config_screenBrightnessMinimumNits and
          config_screenBrightnessMaximumNits, the display brightness is defined as the measured
@@ -320,9 +322,40 @@
         M 0,0 H 144 V 104 H 0 V 0 Z @left
     </string>
 
-    <!-- The default peak refresh rate for a given device. Change this value if you want to allow
-         for higher refresh rates to be automatically used out of the box -->
-    <integer name="config_defaultRefreshRate">0</integer>
+    <!-- The default refresh rate for a given device. Change this value to set a higher default
+     refresh rate. If the hardware composer on the device supports display modes with a higher
+     refresh rate than the default value specified here, the framework may use those higher
+     refresh rate modes if an app chooses one by setting preferredDisplayModeId or calling
+     setFrameRate().
+     If a non-zero value is set for config_defaultPeakRefreshRate, then
+     config_defaultRefreshRate may be set to 0, in which case the value set for
+     config_defaultPeakRefreshRate will act as the default frame rate. -->
+     <integer name="config_defaultRefreshRate">0</integer>
+
+    <!-- default refresh rate in the zone defined by brightness and ambient thresholds -->
+    <integer name="config_defaultRefreshRateInZone">90</integer>
+
+    <!-- Default refresh rate while the device has high brightness mode enabled for HDR. -->
+    <integer name="config_defaultRefreshRateInHbmHdr">60</integer>
+
+    <!-- Not allow to switch to higher refresh rate when (display, ambient) brightness falls into
+         the region defined by the two arrays -->
+    <integer-array name="config_brightnessThresholdsOfPeakRefreshRate">
+        <item>-1</item>
+    </integer-array>
+    <integer-array name="config_ambientThresholdsOfPeakRefreshRate">
+        <item>-1</item>
+    </integer-array>
+
+    <!-- Preferred refresh rate at keyguard, if supported by the display -->
+    <integer name="config_keyguardRefreshRate">60</integer>
+
+    <!-- Should we vibrate on an icon animation of the shelf. This should only be active if the
+    vibrator is capable of subtle vibrations -->
+    <bool name="config_vibrateOnIconAnimation">true</bool>
+
+    <!-- If this is true, the screen will come on when you unplug usb/power/whatever. -->
+    <bool name="config_unplugTurnsOnScreen">true</bool>
 
     <!-- The default peak refresh rate. -->
     <integer name="config_defaultPeakRefreshRate">90</integer>
