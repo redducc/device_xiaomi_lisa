@@ -82,70 +82,22 @@ BOARD_INCLUDE_DTB_IN_BOOTIMG := true
 BOARD_KERNEL_SEPARATED_DTBO := true
 BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION)
 
-KERNEL_DEFCONFIG := lisa_defconfig
+KERNEL_DEFCONFIG := vendor/lisa-qgki_defconfig
 TARGET_KERNEL_SOURCE := kernel/xiaomi/lisa
+KERNEL_CUSTOM_LLVM := true
 
-BOARD_VENDOR_KERNEL_MODULES := \
-    $(KERNEL_MODULES_OUT)/adsp_loader_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/apr_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/bolero_cdc_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/bt_fm_slim.ko \
-    $(KERNEL_MODULES_OUT)/btpower.ko \
-    $(KERNEL_MODULES_OUT)/camera.ko \
-    $(KERNEL_MODULES_OUT)/device_management_service_v01.ko \
-    $(KERNEL_MODULES_OUT)/fpc1020_tee.ko \
-    $(KERNEL_MODULES_OUT)/goodix_core.ko \
-    $(KERNEL_MODULES_OUT)/goodix_ts_gesture.ko \
-    $(KERNEL_MODULES_OUT)/goodix_ts_tools.ko \
-    $(KERNEL_MODULES_OUT)/hdmi_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/hwid.ko \
-    $(KERNEL_MODULES_OUT)/icnss2.ko \
-    $(KERNEL_MODULES_OUT)/ir-spi.ko \
-    $(KERNEL_MODULES_OUT)/leds-qti-flash.ko \
-    $(KERNEL_MODULES_OUT)/llcc_perfmon.ko \
-    $(KERNEL_MODULES_OUT)/machine_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/mbhc_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/mi_thermal_interface.ko \
-    $(KERNEL_MODULES_OUT)/native_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/nfc_i2c.ko \
-    $(KERNEL_MODULES_OUT)/pinctrl_lpi_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/pinctrl_wcd_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/platform_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/q6_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/q6_notifier_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/q6_pdr_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/qti_battery_charger_main.ko \
-    $(KERNEL_MODULES_OUT)/radio-i2c-rtc6226-qca.ko \
-    $(KERNEL_MODULES_OUT)/rmnet_core.ko \
-    $(KERNEL_MODULES_OUT)/rmnet_ctl.ko \
-    $(KERNEL_MODULES_OUT)/rmnet_offload.ko \
-    $(KERNEL_MODULES_OUT)/rmnet_shs.ko \
-    $(KERNEL_MODULES_OUT)/rx_macro_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/slimbus-ngd.ko \
-    $(KERNEL_MODULES_OUT)/slimbus.ko \
-    $(KERNEL_MODULES_OUT)/snd_event_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/stub_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/swr_ctrl_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/swr_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/swr_dmic_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/swr_haptics_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/tfa98xx_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/tx_macro_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/us_prox_iio.ko \
-    $(KERNEL_MODULES_OUT)/usb_f_dtp.ko \
-    $(KERNEL_MODULES_OUT)/usbdtp.ko \
-    $(KERNEL_MODULES_OUT)/va_macro_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/wcd937x_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/wcd937x_slave_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/wcd938x_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/wcd938x_slave_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/wcd9xxx_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/wcd_core_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/wlan.ko \
-    $(KERNEL_MODULES_OUT)/wlan_firmware_service_v01.ko \
-    $(KERNEL_MODULES_OUT)/wsa883x_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/wsa_macro_dlkm.ko \
-    $(KERNEL_MODULES_OUT)/xiaomi_touch.ko
+TARGET_KERNEL_ADDITIONAL_FLAGS := \
+    LLVM=1 \
+    LLVM_IAS=1 \
+    TARGET_PRODUCT=$(PRODUCT_DEVICE)
+
+# Kernel modules
+BOOT_KERNEL_MODULES := \
+    hwid.ko \
+    goodix_core.ko \
+    xiaomi_touch.ko
+
+BOARD_VENDOR_RAMDISK_RECOVERY_KERNEL_MODULES_LOAD := $(BOOT_KERNEL_MODULES)
 
 # Partitions
 BOARD_FLASH_BLOCK_SIZE := 131072
